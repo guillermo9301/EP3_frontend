@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!-- Bootstrap CSS -->
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+            crossorigin="anonymous">
+
+        <title>Registrar usuario</title>
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    </head>
+    <body>
+        <div class="container">
+            <div
+                style="
+                width: 1000px;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                margin-top: 15%;
+                margin-left: 10%;">
+
+                <div>
+                    <h1>Registrate</h1>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        <form id="registerForm" action="login.html"
+                            method="POST">
+                            <div class="mb-3">
+                                <label for="nombres"
+                                    class="form-label">Nombres
+                                </label>
+                                <input type="text" class="form-control"
+                                    id="nombres"
+                                    aria-describedby="emailHelp">
+                                <div id="emailHelp" class="form-text">
+                                    Ingrese sus nombres
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="apellido_paterno"
+                                    class="form-label">Apellido Paterno
+                                </label>
+                                <input type="text" class="form-control"
+                                    id="apellido_paterno"
+                                    aria-describedby="emailHelp">
+                                <div id="emailHelp" class="form-text">
+                                    Ingrese su apellido paterno
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="apellido_materno"
+                                    class="form-label">Apellido Materno
+                                </label>
+                                <input type="text" class="form-control"
+                                    id="apellido_materno"
+                                    aria-describedby="emailHelp">
+                                <div id="emailHelp" class="form-text">
+                                    Ingrese su apellido materno
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="exampleInputEmail1"
+                                    class="form-label">Correo
+                                </label>
+                                <input type="email" class="form-control"
+                                    id="correo"
+                                    aria-describedby="emailHelp">
+                                <div id="emailHelp" class="form-text">
+                                    No compartiremos tu correo con terceros
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="exampleInputPassword1"
+                                    class="form-label">Password</label>
+                                <input type="password" class="form-control"
+                                    id="password">
+                            </div>
+                            <button type="submit"
+                                class="btn btn-primary">Registrarse</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous">
+        </script>
+
+        <script>
+            $(document).ready(function() {
+                $('#registerForm').on('submit', function(e) {
+                    e.preventDefault();
+
+                const nombres = $('#nombres').val();
+                const apellido_paterno = $('#apellido_paterno').val();
+                const apellido_materno = $('#apellido_materno').val();
+                const correo = $('#correo').val();
+                const password = $('#password').val();
+
+                $.ajax({
+                    url: 'http://localhost:4000/api/usuario/registrar',
+                    method: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify({ nombres, apellido_paterno, apellido_materno, correo, password }),
+                success: function(response) {
+                    alert('User registered successfully');
+                    window.location.href = 'login.html';
+                },
+                error: function(jqXHR) {
+                    alert('Error: ' + jqXHR.responseText);
+                }
+            });
+        });
+
+    });
+    </script>
+    </body>
+</html>
